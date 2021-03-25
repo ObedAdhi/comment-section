@@ -5,11 +5,11 @@ if (process.env.NODE_ENV === "development") {
 const express = require("express")
 const app = express()
 const PORT = process.env.PORT || 3000
-const router = require("./routes")
 const errorHandler = require("./middlewares/errorHandler")
 const { connect } = require("./config/mongoDB")
 
 connect().then(async (db) => {
+  const router = require("./routes")
   app.use(express.json())
   app.use(express.urlencoded({ extended: false }))
   
