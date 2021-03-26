@@ -14,8 +14,6 @@ class User {
   static findByEmail(email) {
     return usersDB.findOne({email})
   }
-
-
 }
 
 module.exports = User

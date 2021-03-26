@@ -34,6 +34,40 @@ class CommentController {
       next(err)
     }
   }
+
+  static async editComment (req, res, next) {
+    try {
+      const id = req.params.commentId
+      const { commentValue } = req.body
+      const updatedComment = await Comment.updateOne(id, { commentValue })
+      console.log(updatedComment.result);
+
+      if (updatedComment.result.n === 0) {
+        return next({ name: 'NOT_FOUND' })
+      } else {
+        res.status(200).json({ message: 'Comment edited', status: updatedComment.result })
+      }
+    } catch (err) {
+      console.log(err);
+      next(err)
+    }
+  }
+
+  static async delete (req, res, next) {
+    try {
+      const id = req.params.commentId
+      const deleteStatus = await Comment.delete(id)
+
+      if (deleteStatus.result.n === 0) {
+        return next({name: 'NOT_FOUND'})
+      } else {
+        res.status(200).json({message: "Comment deleted", status: deleteStatus.result})
+      }
+
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 module.exports = CommentController
