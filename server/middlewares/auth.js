@@ -1,5 +1,6 @@
 const { verifyToken } = require("../helper/jwt");
 const Comment = require("../models/comment");
+const Reply = require("../models/reply");
 const User = require("../models/user");
 
 async function authentication (req, res, next) {
@@ -38,7 +39,25 @@ async function authorizationForComment (req, res, next) {
   }
 }
 
+async function authorizationForReply (req, res, next) {
+  try {
+    const id = req.params.replyId
+    const reply = await Reply.findOne(id)
+    if (!reply) {
+      return next({ name: "NOT_FOUND"})
+    } else if (req.user.email !== reply.email) {
+      return next({ name: "UNAUTHORIZED"})
+    } else {
+      return next()
+    }
+  } catch (err) {
+    console.log(err);
+    next(err)
+  }
+}
+
 module.exports = {
   authentication,
-  authorizationForComment
+  authorizationForComment,
+  authorizationForReply
 }

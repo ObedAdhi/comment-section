@@ -10,6 +10,14 @@ User can reply to a comment too.
 |POST |/login | Login to registered user account   |
 |POST |/comments | Create new comment   |
 |GET |/comments | Get all comments   |
+|PUT |/comments/:commentId | Edit a comment   |
+|DELETE |/comments/:commentId | Delete a comment   |
+|POST |/replies | Create a reply to a comment   |
+|GET |/replies | Get all replies   |
+|PUT |/replies/:replyId | Edit a reply   |
+|DELETE |/replies/:replyId | Delete a reply   |
+
+
 
 ## Note
 - I assume that this comment function is similiar as general social media comment section, so user must be registered and logged in to comment
@@ -39,3 +47,7 @@ User can reply to a comment too.
 - Added comment authorization for update and delete
 - Added Axios to client
 - Edited errorHandler, adding unauthorized error case
+### Commit 4
+- Added Reply CRUD
+- Added Reply authorization for update and delete
+- Edited Comment Controller to show complete data of comment and replies to that comment

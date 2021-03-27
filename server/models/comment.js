@@ -4,11 +4,35 @@ const commentDB = getDatabase().collection("comments")
 
 class Comment {
   static create (comment) {
+    comment.commentId = ObjectId(comment.commentId)
+    console.log(comment.commentId);
     return commentDB.insertOne(comment)
   }
 
   static findAll () {
-    return commentDB.find().toArray()
+    return commentDB.aggregate([
+      {
+        "$project": {
+          "_id": {
+            "$toString": "$_id"
+          }, 
+          "commentValue": "$commentValue",
+          "name": "$name",
+          "email": "$email",
+          "createdAt": "$createdAt",
+        }
+      },
+      {
+        $lookup:
+          {
+            from: "replies",
+            localField: "_id",
+            foreignField: "commentId",
+            as: "replies"
+          }
+     }
+   ]).toArray()
+    // return commentDB.find().toArray()
   }
 
   static findOne (commentId) {
