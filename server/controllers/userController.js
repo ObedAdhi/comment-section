@@ -28,14 +28,16 @@ class UserController {
   static async login (req, res, next) {
     try {
       const { email, password } = req.body
+      console.log(req.body);
       const user = await User.findByEmail(email)
 
       if (!user) {
-        next({name: 'WRONG_LOGIN'})
+        console.log("lalalala");
+        return next({name: 'WRONG_LOGIN'})
       } 
       const isValidPass = comparePassword(password, user.password)
       if (!isValidPass) {
-        next({name: 'WRONG_LOGIN'})
+        return next({name: 'WRONG_LOGIN'})
       } else {
         const payload = {
           _id: user._id,

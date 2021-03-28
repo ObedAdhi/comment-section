@@ -51,3 +51,8 @@ User can reply to a comment too.
 - Added Reply CRUD
 - Added Reply authorization for update and delete
 - Edited Comment Controller to show complete data of comment and replies to that comment
+### Commit 5
+- Added axios helper
+- Added login / register page
+- Added Navbar
+- Connecting login and register page to backend server
