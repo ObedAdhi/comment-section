@@ -8,7 +8,7 @@ class Reply {
   }
 
   static findAll () {
-    return replyDB.find().toArray()
+    return replyDB.find().sort({createdAt: 1}).toArray()
   }
 
   static findOne (replyId) {

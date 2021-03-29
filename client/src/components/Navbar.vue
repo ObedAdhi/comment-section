@@ -14,7 +14,7 @@
         </ul>
 
         <router-link v-if="loginStatus == 'true'"
-          to="/my-tasks" class="btn btn-light btn-sm mt-1 me-3" style="font-weight: bold;">My Tasks</router-link>
+          to="/post" class="btn btn-light btn-sm mt-1 me-3" style="font-weight: bold;">Post</router-link>
         <button
           v-if="loginStatus == 'true'"
           @click.prevent="logout"

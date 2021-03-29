@@ -13,10 +13,11 @@ class UserController {
       } else {
         const newUser = await User.create({ email, password, name })
         const payload = {
-          _id: newUser._id,
-          email: newUser.email,
-          name: newUser.name
+          _id: newUser.ops[0]._id,
+          email: newUser.ops[0].email,
+          name: newUser.ops[0].name
         }
+        console.log(newUser.ops);
         const access_token = generateToken(payload)
         res.status(201).json({access_token})
       }
@@ -32,7 +33,6 @@ class UserController {
       const user = await User.findByEmail(email)
 
       if (!user) {
-        console.log("lalalala");
         return next({name: 'WRONG_LOGIN'})
       } 
       const isValidPass = comparePassword(password, user.password)

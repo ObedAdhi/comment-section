@@ -56,3 +56,10 @@ User can reply to a comment too.
 - Added login / register page
 - Added Navbar
 - Connecting login and register page to backend server
+### Commit 6
+- Added Post views to display comment section
+- Connecting Post views to backend server
+- Added Comment component (template)
+- Added Reply component (template)
+- Displaying all comments with it's replies
+- Fix register output from models

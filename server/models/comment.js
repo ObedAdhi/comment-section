@@ -31,7 +31,7 @@ class Comment {
             as: "replies"
           }
      }
-   ]).toArray()
+   ]).sort({createdAt: 1}).toArray()
     // return commentDB.find().toArray()
   }
 

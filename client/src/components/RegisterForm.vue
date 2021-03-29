@@ -5,6 +5,10 @@
       <input v-model="email" type="email" class="form-control" id="floatingInputE" placeholder="name@example.com">
       <label for="floatingInputE">Email</label>
     </div>
+    <div class="form-floating mb-3">
+      <input v-model="name" type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+      <label for="floatingInput">Full Name</label>
+    </div>
     <div class="form-floating mb-5">
       <input v-model="password" type="password" class="form-control " id="floatingPassword" placeholder="Password">
       <label for="floatingPassword">Password</label>
@@ -19,6 +23,7 @@ export default {
   data () {
     return {
       email: '',
+      name: '',
       password: ''
     }
   },
@@ -26,6 +31,7 @@ export default {
     register () {
       const payload = {
         email: this.email,
+        name: this.name,
         password: this.password
       }
       this.$store.dispatch('register', payload)

@@ -54,13 +54,13 @@ export default new Vuex.Store({
         })
     },
     register (context, payload) {
-      const { email, password } = payload
-      console.log(email, password)
+      const { email, name, password } = payload
+      console.log(payload)
       axios({
         method: 'POST',
         url: '/register',
         data: {
-          email, password
+          email, name, password
         }
       })
         .then(data => {
@@ -81,6 +81,23 @@ export default new Vuex.Store({
             text: err.response.data.message
           })
         })
+    },
+    getAllComments (context) {
+      const access_token = localStorage.getItem('access_token')
+      axios({
+        method: 'GET',
+        url: '/comments',
+        headers: {
+          access_token
+        }
+      })
+        .then(data => {
+          this.commit('insertAllComments', data.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
+
   }
 })
