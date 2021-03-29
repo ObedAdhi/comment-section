@@ -63,3 +63,9 @@ User can reply to a comment too.
 - Added Reply component (template)
 - Displaying all comments with it's replies
 - Fix register output from models
+### Commit 7
+- Added create comment function
+- Added comment text field input
+- Added delete function for comment and reply
+- Added CommentCard for looping
+- Added ReplyCard for looping

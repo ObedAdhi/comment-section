@@ -26,7 +26,6 @@ export default new Vuex.Store({
   actions: {
     login (context, payload) {
       const { email, password } = payload
-      console.log(email, password)
       axios({
         method: 'POST',
         url: '/login',
@@ -35,7 +34,6 @@ export default new Vuex.Store({
         }
       })
         .then(data => {
-          console.log(data.data.access_token)
           localStorage.setItem('access_token', data.data.access_token)
           Swal.fire({
             icon: 'success',
@@ -55,7 +53,6 @@ export default new Vuex.Store({
     },
     register (context, payload) {
       const { email, name, password } = payload
-      console.log(payload)
       axios({
         method: 'POST',
         url: '/register',
@@ -64,7 +61,6 @@ export default new Vuex.Store({
         }
       })
         .then(data => {
-          console.log(data.data.access_token)
           localStorage.setItem('access_token', data.data.access_token)
           Swal.fire({
             icon: 'success',
@@ -97,7 +93,116 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err)
         })
+    },
+    createComment (context, payload) {
+      const { commentValue } = payload
+      const access_token = localStorage.getItem('access_token')
+      console.log(commentValue)
+      axios({
+        method: 'POST',
+        url: '/comments',
+        headers: {
+          access_token
+        },
+        data: {
+          commentValue
+        }
+      })
+        .then(data => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Your comment has been added'
+          })
+          this.dispatch('getAllComments')
+        })
+        .catch(err => {
+          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'error',
+            text: err.response.data.message
+          })
+        })
+    },
+    createReply (context, payload) {
+      const { replyValue } = payload
+      const access_token = localStorage.getItem('access_token')
+      console.log(replyValue)
+      axios({
+        method: 'POST',
+        url: '/replies',
+        headers: {
+          access_token
+        },
+        data: {
+          replyValue
+        }
+      })
+        .then(data => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Your reply has been added'
+          })
+          this.dispatch('getAllComments')
+        })
+        .catch(err => {
+          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'error',
+            text: err.response.data.message
+          })
+        })
+    },
+    deleteComment (context, payload) {
+      const { id } = payload
+      const access_token = localStorage.getItem('access_token')
+      axios({
+        method: 'DELETE',
+        url: `/comments/${id}`,
+        headers: {
+          access_token
+        }
+      })
+        .then(data => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Comment deleted'
+          })
+          this.dispatch('getAllComments')
+        })
+        .catch(err => {
+          Swal.fire({
+            icon: 'error',
+            title: 'error',
+            text: err.response.data.message
+          })
+        })
+    },
+    deleteReply (context, payload) {
+      const { id } = payload
+      const access_token = localStorage.getItem('access_token')
+      axios({
+        method: 'DELETE',
+        url: `/replies/${id}`,
+        headers: {
+          access_token
+        }
+      })
+        .then(data => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Reply deleted'
+          })
+          this.dispatch('getAllComments')
+        })
+        .catch(err => {
+          Swal.fire({
+            icon: 'error',
+            title: 'error',
+            text: err.response.data.message
+          })
+        })
     }
-
   }
 })
