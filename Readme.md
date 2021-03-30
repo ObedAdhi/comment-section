@@ -17,7 +17,15 @@ User can reply to a comment too.
 |PUT |/replies/:replyId | Edit a reply   |
 |DELETE |/replies/:replyId | Delete a reply   |
 
-
+## Starting This App
+### Starting Server
+- From root folder, change directory to server ($ cd server)
+- run $ npm install
+- run $ npm run dev
+### Starting Client
+- From root folder, change directory to server ($ cd client)
+- run $ npm install
+- run $ npm run serve
 
 ## Note
 - I assume that this comment function is similiar as general social media comment section, so user must be registered and logged in to comment
@@ -69,3 +77,7 @@ User can reply to a comment too.
 - Added delete function for comment and reply
 - Added CommentCard for looping
 - Added ReplyCard for looping
+### Commit 8
+- Added edit function on CommentCard and ReplyCard component
+- Added collapsable form to create a comment and reply
+- Added collapsable form to edit a comment and reply

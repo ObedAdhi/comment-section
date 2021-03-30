@@ -10,7 +10,8 @@ export default new Vuex.Store({
   state: {
     allComments: [],
     loginPage: 'login',
-    loginStatus: ''
+    loginStatus: '',
+    currentComment: {}
   },
   mutations: {
     changeLoginPage (state, payload) {
@@ -125,7 +126,7 @@ export default new Vuex.Store({
         })
     },
     createReply (context, payload) {
-      const { replyValue } = payload
+      const { replyValue, commentId } = payload
       const access_token = localStorage.getItem('access_token')
       console.log(replyValue)
       axios({
@@ -135,7 +136,7 @@ export default new Vuex.Store({
           access_token
         },
         data: {
-          replyValue
+          replyValue, commentId
         }
       })
         .then(data => {
@@ -193,6 +194,64 @@ export default new Vuex.Store({
           Swal.fire({
             icon: 'success',
             title: 'Reply deleted'
+          })
+          this.dispatch('getAllComments')
+        })
+        .catch(err => {
+          Swal.fire({
+            icon: 'error',
+            title: 'error',
+            text: err.response.data.message
+          })
+        })
+    },
+    editComment (context, payload) {
+      const { id, commentValue } = payload
+      console.log(payload)
+      const access_token = localStorage.getItem('access_token')
+      axios({
+        method: 'PUT',
+        url: `/comments/${id}`,
+        headers: {
+          access_token
+        },
+        data: {
+          commentValue
+        }
+      })
+        .then(data => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Comment edited'
+          })
+          this.dispatch('getAllComments')
+        })
+        .catch(err => {
+          Swal.fire({
+            icon: 'error',
+            title: 'error',
+            text: err.response.data.message
+          })
+        })
+    },
+    editReply (context, payload) {
+      const { id, replyValue } = payload
+      console.log(payload)
+      const access_token = localStorage.getItem('access_token')
+      axios({
+        method: 'PUT',
+        url: `/replies/${id}`,
+        headers: {
+          access_token
+        },
+        data: {
+          replyValue
+        }
+      })
+        .then(data => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Reply edited'
           })
           this.dispatch('getAllComments')
         })
