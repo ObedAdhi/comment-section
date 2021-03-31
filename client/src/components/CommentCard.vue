@@ -3,7 +3,6 @@
       <div class="card-body">
         <div class="row">
           <h5 class="card-title fw-bold fw-bold text-dark col"> {{ comment.name }} </h5>
-          <button class="btn btn-dark col align-self-end">opt</button>
         </div>
         <h6 class="card-subtitle mb-2 text-muted" style="font-size:80%;"> {{ timeFormatter(comment.createdAt) }} </h6>
         <p class="card-text"> {{ comment.commentValue }} </p>
